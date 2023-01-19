@@ -4,27 +4,36 @@
  * and open the template in the editor.
  */
 package VISTA;
-import com.formdev.flatlaf.*;
-import com.formdev.flatlaf.intellijthemes.*;
-import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatSolarizedLightIJTheme;
+import com.formdev.flatlaf.intellijthemes.FlatSolarizedLightIJTheme;
+
+
+import java.awt.BorderLayout;
 
 
 /**
  *
  * @author Rogier
  */
-public class fmrPrincipalMenu extends javax.swing.JFrame {
+public class frmPrincipalMenu extends javax.swing.JFrame {
 
     /**
      * Creates new form fmrPrincipalMenu
      */
-    public fmrPrincipalMenu() {
+    public frmPrincipalMenu() {
         initComponents();
-        InciarEstilos();
+        ContenidoInicial();
     }
-    public void InciarEstilos() {
-     
+    private void ContenidoInicial(){
+        frmInicio ini= new frmInicio();
+        ini.setSize(730, 530);
+        ini.setLocation(0, 0);
+        pnlContenidos.removeAll();
+        pnlContenidos.add(ini, BorderLayout.CENTER);
+        pnlContenidos.revalidate();
+        pnlContenidos.repaint();
+        
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -39,10 +48,9 @@ public class fmrPrincipalMenu extends javax.swing.JFrame {
         jSeparator1 = new javax.swing.JSeparator();
         jSeparator2 = new javax.swing.JSeparator();
         jLabel6 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jSeparator3 = new javax.swing.JSeparator();
-        jButton3 = new javax.swing.JButton();
+        btnInicio = new javax.swing.JButton();
+        btnRegistroCliente = new javax.swing.JButton();
+        btnRegistroMascota = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         Consulta = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
@@ -55,51 +63,62 @@ public class fmrPrincipalMenu extends javax.swing.JFrame {
         jButton5 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setMinimumSize(new java.awt.Dimension(930, 600));
 
         pnlMenuLateral.setBackground(new java.awt.Color(1, 92, 132));
 
         jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/VISTA/assets/logo.png"))); // NOI18N
 
-        jButton1.setBackground(new java.awt.Color(1, 92, 132));
-        jButton1.setFont(new java.awt.Font("Segoe UI Semibold", 1, 14)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/VISTA/assets/home-page-32.png"))); // NOI18N
-        jButton1.setText("Inicio");
-        jButton1.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 10, 1, 1, new java.awt.Color(0, 0, 0)));
-        jButton1.setBorderPainted(false);
-        jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jButton1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jButton1.setIconTextGap(15);
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnInicio.setBackground(new java.awt.Color(1, 92, 132));
+        btnInicio.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnInicio.setForeground(new java.awt.Color(255, 255, 255));
+        btnInicio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/VISTA/assets/home-page-32.png"))); // NOI18N
+        btnInicio.setText("Inicio");
+        btnInicio.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 10, 1, 1, new java.awt.Color(0, 0, 0)));
+        btnInicio.setBorderPainted(false);
+        btnInicio.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnInicio.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        btnInicio.setIconTextGap(15);
+        btnInicio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnInicioActionPerformed(evt);
             }
         });
 
-        jButton2.setBackground(new java.awt.Color(1, 92, 132));
-        jButton2.setFont(new java.awt.Font("Segoe UI Semibold", 1, 14)); // NOI18N
-        jButton2.setForeground(new java.awt.Color(255, 255, 255));
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/VISTA/assets/client-management-32.png"))); // NOI18N
-        jButton2.setText("Registar Cliente");
-        jButton2.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 10, 1, 1, new java.awt.Color(0, 0, 0)));
-        jButton2.setBorderPainted(false);
-        jButton2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jButton2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jButton2.setIconTextGap(15);
+        btnRegistroCliente.setBackground(new java.awt.Color(1, 92, 132));
+        btnRegistroCliente.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnRegistroCliente.setForeground(new java.awt.Color(255, 255, 255));
+        btnRegistroCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/VISTA/assets/client-management-32.png"))); // NOI18N
+        btnRegistroCliente.setText("Registar Cliente");
+        btnRegistroCliente.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 10, 1, 1, new java.awt.Color(0, 0, 0)));
+        btnRegistroCliente.setBorderPainted(false);
+        btnRegistroCliente.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnRegistroCliente.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        btnRegistroCliente.setIconTextGap(15);
+        btnRegistroCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRegistroClienteActionPerformed(evt);
+            }
+        });
 
-        jButton3.setBackground(new java.awt.Color(1, 92, 132));
-        jButton3.setFont(new java.awt.Font("Segoe UI Semibold", 1, 14)); // NOI18N
-        jButton3.setForeground(new java.awt.Color(255, 255, 255));
-        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/VISTA/assets/pets-32.png"))); // NOI18N
-        jButton3.setText("Registar Mascota");
-        jButton3.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 10, 1, 1, new java.awt.Color(0, 0, 0)));
-        jButton3.setBorderPainted(false);
-        jButton3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jButton3.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jButton3.setIconTextGap(15);
+        btnRegistroMascota.setBackground(new java.awt.Color(1, 92, 132));
+        btnRegistroMascota.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnRegistroMascota.setForeground(new java.awt.Color(255, 255, 255));
+        btnRegistroMascota.setIcon(new javax.swing.ImageIcon(getClass().getResource("/VISTA/assets/pets-32.png"))); // NOI18N
+        btnRegistroMascota.setText("Registar Mascota");
+        btnRegistroMascota.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 10, 1, 1, new java.awt.Color(0, 0, 0)));
+        btnRegistroMascota.setBorderPainted(false);
+        btnRegistroMascota.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnRegistroMascota.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        btnRegistroMascota.setIconTextGap(15);
+        btnRegistroMascota.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRegistroMascotaActionPerformed(evt);
+            }
+        });
 
         jButton4.setBackground(new java.awt.Color(1, 92, 132));
-        jButton4.setFont(new java.awt.Font("Segoe UI Semibold", 1, 14)); // NOI18N
+        jButton4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jButton4.setForeground(new java.awt.Color(255, 255, 255));
         jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/VISTA/assets/doctors-32.png"))); // NOI18N
         jButton4.setText("Medicos");
@@ -110,7 +129,7 @@ public class fmrPrincipalMenu extends javax.swing.JFrame {
         jButton4.setIconTextGap(15);
 
         Consulta.setBackground(new java.awt.Color(1, 92, 132));
-        Consulta.setFont(new java.awt.Font("Segoe UI Semibold", 1, 14)); // NOI18N
+        Consulta.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         Consulta.setForeground(new java.awt.Color(255, 255, 255));
         Consulta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/VISTA/assets/quiz-32.png"))); // NOI18N
         Consulta.setText("Consultas");
@@ -121,7 +140,7 @@ public class fmrPrincipalMenu extends javax.swing.JFrame {
         Consulta.setIconTextGap(15);
 
         jButton6.setBackground(new java.awt.Color(1, 92, 132));
-        jButton6.setFont(new java.awt.Font("Segoe UI Semibold", 1, 14)); // NOI18N
+        jButton6.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jButton6.setForeground(new java.awt.Color(255, 255, 255));
         jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/VISTA/assets/hand-with-a-pill-32.png"))); // NOI18N
         jButton6.setText("Tratamientos");
@@ -132,7 +151,7 @@ public class fmrPrincipalMenu extends javax.swing.JFrame {
         jButton6.setIconTextGap(15);
 
         jButton7.setBackground(new java.awt.Color(1, 92, 132));
-        jButton7.setFont(new java.awt.Font("Segoe UI Semibold", 1, 14)); // NOI18N
+        jButton7.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jButton7.setForeground(new java.awt.Color(255, 255, 255));
         jButton7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/VISTA/assets/logout-32.png"))); // NOI18N
         jButton7.setText("Salir");
@@ -149,13 +168,12 @@ public class fmrPrincipalMenu extends javax.swing.JFrame {
             .addGroup(pnlMenuLateralLayout.createSequentialGroup()
                 .addGap(20, 20, 20)
                 .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(btnInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(btnRegistroCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(btnRegistroMascota, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addComponent(Consulta, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -166,20 +184,19 @@ public class fmrPrincipalMenu extends javax.swing.JFrame {
                 .addGap(10, 10, 10)
                 .addComponent(jLabel6)
                 .addGap(9, 9, 9)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(11, 11, 11)
-                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
-                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnRegistroCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
-                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnRegistroMascota, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(10, 10, 10)
                 .addGroup(pnlMenuLateralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnlMenuLateralLayout.createSequentialGroup()
                         .addGap(6, 6, 6)
                         .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addComponent(Consulta, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
                 .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -189,17 +206,7 @@ public class fmrPrincipalMenu extends javax.swing.JFrame {
 
         pnlContenidos.setBackground(new java.awt.Color(255, 255, 255));
         pnlContenidos.setPreferredSize(new java.awt.Dimension(730, 530));
-
-        javax.swing.GroupLayout pnlContenidosLayout = new javax.swing.GroupLayout(pnlContenidos);
-        pnlContenidos.setLayout(pnlContenidosLayout);
-        pnlContenidosLayout.setHorizontalGroup(
-            pnlContenidosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-        pnlContenidosLayout.setVerticalGroup(
-            pnlContenidosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
+        pnlContenidos.setLayout(new java.awt.CardLayout());
 
         pnlCabezera.setBackground(new java.awt.Color(48, 161, 191));
 
@@ -298,9 +305,37 @@ public class fmrPrincipalMenu extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnInicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInicioActionPerformed
+        frmInicio ini= new frmInicio();
+        ini.setSize(730, 530);
+        ini.setLocation(0, 0);
+        pnlContenidos.removeAll();
+        pnlContenidos.add(ini, BorderLayout.CENTER);
+        pnlContenidos.revalidate();
+        pnlContenidos.repaint();
+    }//GEN-LAST:event_btnInicioActionPerformed
+
+    private void btnRegistroClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistroClienteActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+        frmMantenimientoClientes ini= new frmMantenimientoClientes();
+        ini.setSize(730, 530);
+        ini.setLocation(0, 0);
+        pnlContenidos.removeAll();
+        pnlContenidos.add(ini, BorderLayout.CENTER);
+        pnlContenidos.revalidate();
+        pnlContenidos.repaint();
+    }//GEN-LAST:event_btnRegistroClienteActionPerformed
+
+    private void btnRegistroMascotaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistroMascotaActionPerformed
+        // TODO add your handling code here:
+        frmMantenimientoMascotas ini= new frmMantenimientoMascotas();
+        ini.setSize(730, 530);
+        ini.setLocation(0, 0);
+        pnlContenidos.removeAll();
+        pnlContenidos.add(ini, BorderLayout.CENTER);
+        pnlContenidos.revalidate();
+        pnlContenidos.repaint();
+    }//GEN-LAST:event_btnRegistroMascotaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -312,16 +347,16 @@ public class fmrPrincipalMenu extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new fmrPrincipalMenu().setVisible(true);
+                new frmPrincipalMenu().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Consulta;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
+    private javax.swing.JButton btnInicio;
+    private javax.swing.JButton btnRegistroCliente;
+    private javax.swing.JButton btnRegistroMascota;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
@@ -329,7 +364,6 @@ public class fmrPrincipalMenu extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
-    private javax.swing.JSeparator jSeparator3;
     private javax.swing.JLabel lblIcon;
     private javax.swing.JLabel lblTitulo;
     private javax.swing.JLabel lblUsuario;
