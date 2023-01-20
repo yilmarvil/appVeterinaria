@@ -4,10 +4,14 @@
  * and open the template in the editor.
  */
 package VISTA;
-import com.formdev.flatlaf.intellijthemes.FlatSolarizedLightIJTheme;
+import com.formdev.flatlaf.themes.FlatMacLightLaf;
+
 
 
 import java.awt.BorderLayout;
+import javax.swing.JPanel;
+import javax.swing.UIManager;
+
 
 
 /**
@@ -21,18 +25,23 @@ public class frmPrincipalMenu extends javax.swing.JFrame {
      */
     public frmPrincipalMenu() {
         initComponents();
-        ContenidoInicial();
+        componentesPersonalizados();
+        mostarContenido (new frmInicio());
     }
-    private void ContenidoInicial(){
-        frmInicio ini= new frmInicio();
+    private void componentesPersonalizados(){
+        UIManager.put( "TextComponent.arc", 20 ); //cuadro de texto
+        
+    }  
+    //elementos visuales del panel que se ve
+    private void mostarContenido(JPanel ini){
         ini.setSize(730, 530);
         ini.setLocation(0, 0);
         pnlContenidos.removeAll();
         pnlContenidos.add(ini, BorderLayout.CENTER);
         pnlContenidos.revalidate();
         pnlContenidos.repaint();
-        
     }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -306,42 +315,25 @@ public class frmPrincipalMenu extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnInicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInicioActionPerformed
-        frmInicio ini= new frmInicio();
-        ini.setSize(730, 530);
-        ini.setLocation(0, 0);
-        pnlContenidos.removeAll();
-        pnlContenidos.add(ini, BorderLayout.CENTER);
-        pnlContenidos.revalidate();
-        pnlContenidos.repaint();
+        mostarContenido (new frmInicio());
     }//GEN-LAST:event_btnInicioActionPerformed
 
     private void btnRegistroClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistroClienteActionPerformed
-        // TODO add your handling code here:
-        frmMantenimientoClientes ini= new frmMantenimientoClientes();
-        ini.setSize(730, 530);
-        ini.setLocation(0, 0);
-        pnlContenidos.removeAll();
-        pnlContenidos.add(ini, BorderLayout.CENTER);
-        pnlContenidos.revalidate();
-        pnlContenidos.repaint();
+        // TODO add your handling code here:       
+        mostarContenido (new frmMantenimientoClientes());
     }//GEN-LAST:event_btnRegistroClienteActionPerformed
 
     private void btnRegistroMascotaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistroMascotaActionPerformed
-        // TODO add your handling code here:
-        frmMantenimientoMascotas ini= new frmMantenimientoMascotas();
-        ini.setSize(730, 530);
-        ini.setLocation(0, 0);
-        pnlContenidos.removeAll();
-        pnlContenidos.add(ini, BorderLayout.CENTER);
-        pnlContenidos.revalidate();
-        pnlContenidos.repaint();
+        // TODO add your handling code here:        
+        mostarContenido (new frmMantenimientoMascotas());
     }//GEN-LAST:event_btnRegistroMascotaActionPerformed
 
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        FlatSolarizedLightIJTheme.setup();
+        FlatMacLightLaf.setup();
+        
         //</editor-fold>
 
         /* Create and display the form */

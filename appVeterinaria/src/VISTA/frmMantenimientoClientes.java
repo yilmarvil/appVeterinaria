@@ -1,15 +1,85 @@
 
 package VISTA;
 
+import CONTROLADOR.cClientes;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 public class frmMantenimientoClientes extends javax.swing.JPanel {
 
-    /**
-     * Creates new form fmrInicio
-     */
+    cClientes ocClientes = new cClientes();
+    DefaultTableModel modeloClientes = new DefaultTableModel();
     public frmMantenimientoClientes() {
         initComponents();
+        listarClientes();
+    }
+    
+    public void listarClientes() {
+        try {
+            modeloClientes = ocClientes.listar();
+            tblClientes.setModel(modeloClientes);
+        } catch (Exception e) {
+        }
     }
 
+    public void GuardarClientes() {
+        try {
+            String idcliente = txtIdCliente.getText();
+            String dni = txtDNI.getText();
+            String nombres=txtNombres.getText();
+            String apaterno=txtAPaterno.getText();
+            String amaterno=txtAMaterno.getText();
+            String direccion=txtDireccion.getText();
+            String telefono=txtTelefono.getText();
+            String email=txtEmail.getText();
+            
+            ocClientes.insertar(idcliente, dni, nombres, apaterno, amaterno, direccion, telefono, email);
+            
+        } catch (Exception e) {
+        }
+    }
+    
+    public void ModificarClientes() {
+        try {
+            String idcliente = txtIdCliente.getText();
+            String dni = txtDNI.getText();
+            String nombres=txtNombres.getText();
+            String apaterno=txtAPaterno.getText();
+            String amaterno=txtAMaterno.getText();
+            String direccion=txtDireccion.getText();
+            String telefono=txtTelefono.getText();
+            String email=txtEmail.getText();
+            
+            ocClientes.modificar(idcliente, dni, nombres, apaterno, amaterno, direccion, telefono, email);
+            JOptionPane.showMessageDialog(null, "Se modificó correctamente!");
+        } catch (Exception e) {
+        }
+    }
+    
+    public void RecuperarDatos()
+    {
+        int filaSeleccionada= tblClientes.getSelectedRow();
+        txtIdCliente.setText(tblClientes.getValueAt(filaSeleccionada, 0).toString());
+        txtDNI.setText(tblClientes.getValueAt(filaSeleccionada, 1).toString());
+        txtNombres.setText(tblClientes.getValueAt(filaSeleccionada, 2).toString());
+        txtAPaterno.setText(tblClientes.getValueAt(filaSeleccionada, 3).toString());
+        txtAMaterno.setText(tblClientes.getValueAt(filaSeleccionada, 4).toString());
+        txtDireccion.setText(tblClientes.getValueAt(filaSeleccionada, 5).toString());
+        txtTelefono.setText(tblClientes.getValueAt(filaSeleccionada, 6).toString());
+        txtEmail.setText(tblClientes.getValueAt(filaSeleccionada, 7).toString());
+    }
+    
+    public void limpiar()
+    {
+        txtIdCliente.setText(null);
+        txtDNI.setText(null);
+        txtNombres.setText(null);
+        txtAPaterno.setText(null);
+        txtAMaterno.setText(null);
+        txtDireccion.setText(null);
+        txtTelefono.setText(null);
+        txtEmail.setText(null);
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -40,11 +110,11 @@ public class frmMantenimientoClientes extends javax.swing.JPanel {
         txtDireccion = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
         jButton3 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        btnEditar = new javax.swing.JButton();
+        btnRegistrar = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tblClientes = new javax.swing.JTable();
 
         pnlFondo.setPreferredSize(new java.awt.Dimension(730, 530));
 
@@ -184,27 +254,37 @@ public class frmMantenimientoClientes extends javax.swing.JPanel {
         jButton3.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
         jButton3.setIconTextGap(15);
 
-        jButton2.setBackground(new java.awt.Color(240, 173, 78));
-        jButton2.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
-        jButton2.setForeground(new java.awt.Color(255, 255, 255));
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/VISTA/assets/edit-property-32.png"))); // NOI18N
-        jButton2.setText("Editar");
-        jButton2.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 10, 1, 1, new java.awt.Color(0, 0, 0)));
-        jButton2.setBorderPainted(false);
-        jButton2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jButton2.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
-        jButton2.setIconTextGap(15);
+        btnEditar.setBackground(new java.awt.Color(240, 173, 78));
+        btnEditar.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
+        btnEditar.setForeground(new java.awt.Color(255, 255, 255));
+        btnEditar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/VISTA/assets/edit-property-32.png"))); // NOI18N
+        btnEditar.setText("Editar");
+        btnEditar.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 10, 1, 1, new java.awt.Color(0, 0, 0)));
+        btnEditar.setBorderPainted(false);
+        btnEditar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnEditar.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        btnEditar.setIconTextGap(15);
+        btnEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditarActionPerformed(evt);
+            }
+        });
 
-        jButton1.setBackground(new java.awt.Color(92, 184, 92));
-        jButton1.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/VISTA/assets/save-32.png"))); // NOI18N
-        jButton1.setText("Registrar");
-        jButton1.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 10, 1, 1, new java.awt.Color(0, 0, 0)));
-        jButton1.setBorderPainted(false);
-        jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jButton1.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
-        jButton1.setIconTextGap(15);
+        btnRegistrar.setBackground(new java.awt.Color(92, 184, 92));
+        btnRegistrar.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
+        btnRegistrar.setForeground(new java.awt.Color(255, 255, 255));
+        btnRegistrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/VISTA/assets/save-32.png"))); // NOI18N
+        btnRegistrar.setText("Registrar");
+        btnRegistrar.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 10, 1, 1, new java.awt.Color(0, 0, 0)));
+        btnRegistrar.setBorderPainted(false);
+        btnRegistrar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnRegistrar.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        btnRegistrar.setIconTextGap(15);
+        btnRegistrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRegistrarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -212,9 +292,9 @@ public class frmMantenimientoClientes extends javax.swing.JPanel {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnRegistrar, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(15, 15, 15)
-                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(15, 15, 15)
                 .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -224,13 +304,13 @@ public class frmMantenimientoClientes extends javax.swing.JPanel {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(26, 26, 26)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnRegistrar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(16, Short.MAX_VALUE))
         );
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tblClientes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -241,7 +321,12 @@ public class frmMantenimientoClientes extends javax.swing.JPanel {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        tblClientes.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblClientesMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(tblClientes);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -312,10 +397,28 @@ public class frmMantenimientoClientes extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtDireccionActionPerformed
 
+    private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
+        GuardarClientes();
+        listarClientes();
+        limpiar();
+    }//GEN-LAST:event_btnRegistrarActionPerformed
+
+    private void tblClientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblClientesMouseClicked
+       
+        RecuperarDatos();
+    }//GEN-LAST:event_tblClientesMouseClicked
+
+    private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
+        // TODO add your handling code here:
+        ModificarClientes();
+        listarClientes();
+        limpiar();
+    }//GEN-LAST:event_btnEditarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton btnEditar;
+    private javax.swing.JButton btnRegistrar;
     private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel17;
@@ -330,8 +433,8 @@ public class frmMantenimientoClientes extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JPanel pnlFondo;
+    private javax.swing.JTable tblClientes;
     private javax.swing.JTextField txtAMaterno;
     private javax.swing.JTextField txtAPaterno;
     private javax.swing.JTextField txtDNI;

@@ -4,7 +4,7 @@ import java.sql.DriverManager;
 import javax.swing.JOptionPane;
 
 public class cConexion {
-    String db = "bdMVC2";
+    String db = "dbatencionvetereniaria";
     String url ="jdbc:mysql://127.0.0.1/"+db;
     String user = "root";
     String pass = "123456";
