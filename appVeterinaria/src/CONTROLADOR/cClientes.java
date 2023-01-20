@@ -7,6 +7,7 @@ import javax.swing.table.DefaultTableModel;
 public class cClientes {
     ClientesDAO oClientesDAO = new ClientesDAO();
     mClientes omClientes = new mClientes();
+    
     public DefaultTableModel listar() {
         return oClientesDAO.listar();
     }
