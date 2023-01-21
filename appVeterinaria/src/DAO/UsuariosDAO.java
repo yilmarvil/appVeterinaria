@@ -11,9 +11,10 @@ public class UsuariosDAO {
     private Connection cn = mysql.conectar();
     private String consulta = "";
     
+    
     public DefaultTableModel listar() {
         DefaultTableModel modelo;
-        String[] titulos = {"ID","Tipo","Nombre","Email","Nick","Password"};
+        String[] titulos = {"ID USUARIO","TIPO DE USUARIO","NOMBRE","EMAIL","NICK","PASSWORD"};
         Object[] registro = new Object[titulos.length];
         
         modelo = new DefaultTableModel(null,titulos);
@@ -96,5 +97,34 @@ public class UsuariosDAO {
             System.out.println("Error. No se eliminó el actualizar"+e);
             return false;
         }
+    }
+    public DefaultTableModel RecuperarUsuario(String nick, String password) {
+        DefaultTableModel modelo;
+        String[] titulos = {"ID USUARIO","TIPO DE USUARIO","NOMBRE","EMAIL","NICK","PASSWORD"};
+        Object[] registro = new Object[titulos.length];
+        
+        modelo = new DefaultTableModel(null,titulos);
+        consulta = "select * from usuarios where nick='"+nick+"' and "+
+            "password= '"+password+"'";
+        try {
+            CallableStatement cst = cn.prepareCall(consulta);
+            cst.execute();
+            
+            ResultSet rs = cst.getResultSet();
+            while (rs.next()) {                
+                registro[0] = rs.getInt("idusuarios");
+                registro[1] = rs.getInt("tipo");
+                registro[2] = rs.getString("nombre");
+                registro[3] = rs.getString("email");
+                registro[4] = rs.getString("nick");
+                registro[5] = rs.getString("password");
+
+                modelo.addRow(registro);
+            }
+            return modelo;
+        } catch (Exception e) {
+            System.out.println("Error al listar: "+e);
+            return null;
+        }    
     }
 }

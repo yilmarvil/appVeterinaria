@@ -1,22 +1,18 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package VISTA;
 
-import CONTROLADOR.cLogin;
+
+
+import CONTROLADOR.cUsuarios;
 import com.formdev.flatlaf.themes.FlatMacLightLaf;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
+import javax.swing.table.DefaultTableModel;
 
 public class frmLogin extends javax.swing.JFrame {
     
-    cLogin ocLogin = new cLogin();
-    
+    cUsuarios ocUsuarios = new cUsuarios();
     public frmLogin() {
         initComponents();
-
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -64,6 +60,7 @@ public class frmLogin extends javax.swing.JFrame {
         pnlIzquierda.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(81, 210, 200, 40));
 
         txtUsuario.setBackground(new java.awt.Color(1, 92, 132));
+        txtUsuario.setFont(new java.awt.Font("Gotham Thin", 1, 14)); // NOI18N
         txtUsuario.setForeground(new java.awt.Color(255, 255, 255));
         txtUsuario.setBorder(null);
         pnlIzquierda.add(txtUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(82, 167, 200, 35));
@@ -75,6 +72,7 @@ public class frmLogin extends javax.swing.JFrame {
         pnlIzquierda.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(82, 127, 190, 40));
 
         txtPasword.setBackground(new java.awt.Color(1, 92, 132));
+        txtPasword.setFont(new java.awt.Font("Gotham Thin", 1, 14)); // NOI18N
         txtPasword.setForeground(new java.awt.Color(255, 255, 255));
         txtPasword.setBorder(null);
         pnlIzquierda.add(txtPasword, new org.netbeans.lib.awtextra.AbsoluteConstraints(81, 252, 201, 35));
@@ -123,7 +121,7 @@ public class frmLogin extends javax.swing.JFrame {
         btnCancelar.setBackground(new java.awt.Color(217, 83, 79));
         btnCancelar.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
         btnCancelar.setForeground(new java.awt.Color(255, 255, 255));
-        btnCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/VISTA/assets/salir-redondeado-32.png"))); // NOI18N
+        btnCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/VISTA/assets/apagar-32.png"))); // NOI18N
         btnCancelar.setText("Cancelar");
         btnCancelar.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 10, 1, 1, new java.awt.Color(0, 0, 0)));
         btnCancelar.setBorderPainted(false);
@@ -231,19 +229,34 @@ public class frmLogin extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngresarActionPerformed
-        String nick = txtUsuario.getText();
-        char[] arregloPassword= txtPasword.getPassword();
-        String password = new String(arregloPassword);
-
-        boolean valor = ocLogin.verificar(nick,password);
-        if (valor!=true) {
-            JOptionPane.showMessageDialog(rootPane,"Usuario y/o Password incorrecta!");
-
-        } else {
-            JOptionPane.showMessageDialog(rootPane,"Login correcto!");
+  
+        DefaultTableModel modeloUsuarios =ocUsuarios.RecuperarUsuario(txtUsuario.getText(), txtPasword.getText());
+        if (modeloUsuarios.getRowCount()==1) {
+            frmPrincipalMenu ofPrincipal= new frmPrincipalMenu();
+            ofPrincipal.lblUsuario.setText(modeloUsuarios.getValueAt(0,4).toString());
+            int tipo = Integer.parseInt(modeloUsuarios.getValueAt(0, 1).toString());
+            
+            switch (tipo) {
+                case 0:
+                    ofPrincipal.btnUsuarios.setVisible(true);
+                break;
+                case 1:
+                    ofPrincipal.btnUsuarios.setVisible(false);
+                break;
+                default:
+                    ofPrincipal.btnUsuarios.setEnabled(false);
+                    ofPrincipal.btnInicio.setEnabled(false);
+                    ofPrincipal.btnRegistroCliente.setEnabled(false);
+                    ofPrincipal.btnRegistroMascota.setEnabled(false);
+                    ofPrincipal.btnMedicos.setEnabled(false);
+                    ofPrincipal.btnConsultas.setEnabled(false);
+                    ofPrincipal.btnTratamientos.setEnabled(false);
+            }
+            JOptionPane.showMessageDialog(rootPane, "Datos validos");
+            ofPrincipal.setVisible(true);
             dispose();
-            frmPrincipalMenu principal=new frmPrincipalMenu();
-            principal.setVisible(true);
+        } else {
+            JOptionPane.showMessageDialog(rootPane,"Usuario y/o Contraseña son incorrectos");
         }
     }//GEN-LAST:event_btnIngresarActionPerformed
 
@@ -262,6 +275,9 @@ public class frmLogin extends javax.swing.JFrame {
      */
     public static void main(String args[]) {
         FlatMacLightLaf.setup();
+        UIManager.put( "TextComponent.arc", 15 );
+        UIManager.put( "Button.arc", 20 );
+        UIManager.put( "Component.focusWidth", 4 );
         //</editor-fold>
 
         /* Create and display the form */

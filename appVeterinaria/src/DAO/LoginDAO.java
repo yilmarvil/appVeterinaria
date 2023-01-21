@@ -10,7 +10,7 @@ public class LoginDAO {
     private cConexion mysql = new cConexion();
     private Connection cn = mysql.conectar();
     private String consulta = "";
-    
+
     public boolean verificar(String nick, String password) {
         String[] registro = new String[1];
         boolean valor = false;

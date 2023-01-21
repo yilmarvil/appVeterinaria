@@ -30,5 +30,10 @@ public class cUsuarios {
         omUsuarios.setPassword(password);
         
         return oUsuariosDAO.modificar(omUsuarios);
-    } 
+    }
+    
+    public DefaultTableModel RecuperarUsuario(String nick, String password)
+    {
+        return oUsuariosDAO.RecuperarUsuario(nick, password);
+    }    
 }
