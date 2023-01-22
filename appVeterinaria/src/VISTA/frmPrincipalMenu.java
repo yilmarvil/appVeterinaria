@@ -1,5 +1,6 @@
 package VISTA;
 import CONTROLADOR.cUsuarios;
+import ENCRIPTACION.EncriptadorAES256;
 import com.formdev.flatlaf.themes.FlatMacLightLaf;
 
 import java.awt.BorderLayout;
@@ -53,9 +54,13 @@ public class frmPrincipalMenu extends javax.swing.JFrame {
             String nombre = txtNombre.getText();
             String email=txtEmail.getText();
             String nick=txtNick.getText();
-            String password=txtPassword.getText();
+            char[] arrayPassword=pssPassword.getPassword();
+            String password=new String(arrayPassword);
             
-            ocUsuarios.insertar(idusuarios, tipo, nombre, email, nick, password);
+            EncriptadorAES256 encriptador = new EncriptadorAES256();
+            String encriptado = encriptador.getAESEncrypt(password);
+            
+            ocUsuarios.insertar(idusuarios, tipo, nombre, email, nick, encriptado);
             JOptionPane.showMessageDialog(null, "Se agrego correctamente!");
         } catch (Exception e) {
         }
@@ -78,9 +83,13 @@ public class frmPrincipalMenu extends javax.swing.JFrame {
             String nombre = txtNombre.getText();
             String email=txtEmail.getText();
             String nick=txtNick.getText();
-            String password=txtPassword.getText();
+            char[] arrayPassword=pssPassword.getPassword();
+            String password=new String(arrayPassword);
             
-            ocUsuarios.modificar(idusuarios, tipo, nombre, email, nick, password);
+            EncriptadorAES256 encriptador = new EncriptadorAES256();
+            String encriptado = encriptador.getAESEncrypt(password);
+            
+            ocUsuarios.modificar(idusuarios, tipo, nombre, email, nick, encriptado);
             JOptionPane.showMessageDialog(null, "Se modificó correctamente!");
         } catch (Exception e) {
         }
@@ -102,13 +111,17 @@ public class frmPrincipalMenu extends javax.swing.JFrame {
                 rdInvitado.setSelected(true);
         }
         
-        
-        
         txtNombre.setText(tblUsuarios.getValueAt(filaSeleccionada, 2).toString());
         txtEmail.setText(tblUsuarios.getValueAt(filaSeleccionada, 3).toString());
         txtNick.setText(tblUsuarios.getValueAt(filaSeleccionada, 4).toString());
-        txtPassword.setText(tblUsuarios.getValueAt(filaSeleccionada, 5).toString());
-        
+        String password=(tblUsuarios.getValueAt(filaSeleccionada, 5).toString());
+        try {
+            EncriptadorAES256 encriptador = new EncriptadorAES256();    
+            String desencriptado = encriptador.getAESDecrypt(password); 
+            pssPassword.setText(desencriptado);
+        } catch (Exception e) {
+            
+        }
     }
     
     public void limpiar()
@@ -119,7 +132,7 @@ public class frmPrincipalMenu extends javax.swing.JFrame {
         txtNombre.setText(null);
         txtEmail.setText(null);
         txtNick.setText(null);
-        txtPassword.setText(null);
+        pssPassword.setText(null);
     }
 
     /**
@@ -154,7 +167,7 @@ public class frmPrincipalMenu extends javax.swing.JFrame {
         rdAdministrador = new javax.swing.JRadioButton();
         rdUsuario = new javax.swing.JRadioButton();
         jLabel21 = new javax.swing.JLabel();
-        txtPassword = new javax.swing.JPasswordField();
+        pssPassword = new javax.swing.JPasswordField();
         jLabel2 = new javax.swing.JLabel();
         rdTipoGroup = new javax.swing.ButtonGroup();
         pnlContenedor = new javax.swing.JPanel();
@@ -354,8 +367,8 @@ public class frmPrincipalMenu extends javax.swing.JFrame {
         jLabel21.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         jPanel3.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 11, 50, 30));
 
-        txtPassword.setText("jPasswordField1");
-        jPanel3.add(txtPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 160, 200, 30));
+        pssPassword.setText("jPasswordField1");
+        jPanel3.add(pssPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 160, 200, 30));
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/VISTA/assets/usuarios.png"))); // NOI18N
 
@@ -796,6 +809,7 @@ public class frmPrincipalMenu extends javax.swing.JFrame {
     private javax.swing.JPanel pnlContenidos;
     private javax.swing.JPanel pnlMenuLateral;
     private javax.swing.JPanel pnlUsuarios;
+    private javax.swing.JPasswordField pssPassword;
     private javax.swing.JRadioButton rdAdministrador;
     private javax.swing.JRadioButton rdInvitado;
     private javax.swing.ButtonGroup rdTipoGroup;
@@ -805,6 +819,5 @@ public class frmPrincipalMenu extends javax.swing.JFrame {
     private javax.swing.JTextField txtIdUsuario;
     private javax.swing.JTextField txtNick;
     private javax.swing.JTextField txtNombre;
-    private javax.swing.JPasswordField txtPassword;
     // End of variables declaration//GEN-END:variables
 }

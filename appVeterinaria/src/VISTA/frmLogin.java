@@ -3,6 +3,7 @@ package VISTA;
 
 
 import CONTROLADOR.cUsuarios;
+import ENCRIPTACION.EncriptadorAES256;
 import com.formdev.flatlaf.themes.FlatMacLightLaf;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
@@ -28,7 +29,7 @@ public class frmLogin extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         txtUsuario = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        txtPasword = new javax.swing.JPasswordField();
+        pssPasword = new javax.swing.JPasswordField();
         jPanel5 = new javax.swing.JPanel();
         jPanel6 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
@@ -50,7 +51,7 @@ public class frmLogin extends javax.swing.JFrame {
         pnlFondo.setPreferredSize(new java.awt.Dimension(630, 440));
         pnlFondo.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        pnlIzquierda.setBackground(new java.awt.Color(1, 92, 132));
+        pnlIzquierda.setBackground(new java.awt.Color(48, 161, 191));
         pnlIzquierda.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setFont(new java.awt.Font("Segoe UI Light", 1, 18)); // NOI18N
@@ -60,9 +61,10 @@ public class frmLogin extends javax.swing.JFrame {
         pnlIzquierda.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(81, 210, 200, 40));
 
         txtUsuario.setBackground(new java.awt.Color(1, 92, 132));
-        txtUsuario.setFont(new java.awt.Font("Gotham Thin", 1, 14)); // NOI18N
+        txtUsuario.setFont(new java.awt.Font("Segoe UI Light", 1, 14)); // NOI18N
         txtUsuario.setForeground(new java.awt.Color(255, 255, 255));
         txtUsuario.setBorder(null);
+        txtUsuario.setSelectionColor(new java.awt.Color(255, 255, 255));
         pnlIzquierda.add(txtUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(82, 167, 200, 35));
 
         jLabel3.setFont(new java.awt.Font("Segoe UI Light", 1, 18)); // NOI18N
@@ -71,11 +73,12 @@ public class frmLogin extends javax.swing.JFrame {
         jLabel3.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         pnlIzquierda.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(82, 127, 190, 40));
 
-        txtPasword.setBackground(new java.awt.Color(1, 92, 132));
-        txtPasword.setFont(new java.awt.Font("Gotham Thin", 1, 14)); // NOI18N
-        txtPasword.setForeground(new java.awt.Color(255, 255, 255));
-        txtPasword.setBorder(null);
-        pnlIzquierda.add(txtPasword, new org.netbeans.lib.awtextra.AbsoluteConstraints(81, 252, 201, 35));
+        pssPasword.setBackground(new java.awt.Color(1, 92, 132));
+        pssPasword.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        pssPasword.setForeground(new java.awt.Color(255, 255, 255));
+        pssPasword.setBorder(null);
+        pssPasword.setSelectionColor(new java.awt.Color(255, 255, 255));
+        pnlIzquierda.add(pssPasword, new org.netbeans.lib.awtextra.AbsoluteConstraints(81, 252, 201, 35));
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -188,7 +191,7 @@ public class frmLogin extends javax.swing.JFrame {
 
         pnlFondo.add(pnlIzquierda, new org.netbeans.lib.awtextra.AbsoluteConstraints(315, 0, 320, 440));
 
-        pnlDerecha.setBackground(new java.awt.Color(0, 51, 51));
+        pnlDerecha.setBackground(new java.awt.Color(1, 92, 132));
         pnlDerecha.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/VISTA/assets/logo.png"))); // NOI18N
@@ -230,12 +233,21 @@ public class frmLogin extends javax.swing.JFrame {
 
     private void btnIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngresarActionPerformed
   
-        DefaultTableModel modeloUsuarios =ocUsuarios.RecuperarUsuario(txtUsuario.getText(), txtPasword.getText());
+        String nick = txtUsuario.getText();
+        //comvertimos password a String
+        char[] arregloPassword = pssPasword.getPassword();
+        String password = new String(arregloPassword);
+        
+        EncriptadorAES256 encriptador = new EncriptadorAES256();
+        String encriptado = encriptador.getAESEncrypt(password);
+        
+        DefaultTableModel modeloUsuarios =ocUsuarios.RecuperarUsuario(nick, encriptado);
+
         if (modeloUsuarios.getRowCount()==1) {
             frmPrincipalMenu ofPrincipal= new frmPrincipalMenu();
             ofPrincipal.lblUsuario.setText(modeloUsuarios.getValueAt(0,4).toString());
             int tipo = Integer.parseInt(modeloUsuarios.getValueAt(0, 1).toString());
-            
+            //roles y permisos de usuaro segun el tipo
             switch (tipo) {
                 case 0:
                     ofPrincipal.btnUsuarios.setVisible(true);
@@ -252,7 +264,7 @@ public class frmLogin extends javax.swing.JFrame {
                     ofPrincipal.btnConsultas.setEnabled(false);
                     ofPrincipal.btnTratamientos.setEnabled(false);
             }
-            JOptionPane.showMessageDialog(rootPane, "Datos validos");
+            
             ofPrincipal.setVisible(true);
             dispose();
         } else {
@@ -307,7 +319,7 @@ public class frmLogin extends javax.swing.JFrame {
     private javax.swing.JPanel pnlDerecha;
     private javax.swing.JPanel pnlFondo;
     private javax.swing.JPanel pnlIzquierda;
-    private javax.swing.JPasswordField txtPasword;
+    private javax.swing.JPasswordField pssPasword;
     private javax.swing.JTextField txtUsuario;
     // End of variables declaration//GEN-END:variables
 }

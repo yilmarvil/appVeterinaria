@@ -449,7 +449,7 @@
                 </Constraint>
               </Constraints>
             </Component>
-            <Component class="javax.swing.JPasswordField" name="txtPassword">
+            <Component class="javax.swing.JPasswordField" name="pssPassword">
               <Properties>
                 <Property name="text" type="java.lang.String" value="jPasswordField1"/>
               </Properties>
