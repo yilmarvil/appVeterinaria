@@ -1,4 +1,5 @@
 package VISTA;
+
 import CONTROLADOR.cUsuarios;
 import ENCRIPTACION.EncriptadorAES256;
 import com.formdev.flatlaf.themes.FlatMacLightLaf;
@@ -11,16 +12,17 @@ import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
 
 public class frmPrincipalMenu extends javax.swing.JFrame {
+
     cUsuarios ocUsuarios = new cUsuarios();
     DefaultTableModel modeloUsuarios = new DefaultTableModel();
-    
+
     public frmPrincipalMenu() {
         initComponents();
-        mostarContenido (new frmInicio());    
+        mostarContenido(new frmInicio());
     }
 
     //elementos visuales del panel que se ve
-    private void mostarContenido(JPanel ini){
+    private void mostarContenido(JPanel ini) {
         ini.setSize(730, 530);
         ini.setLocation(0, 0);
         pnlContenidos.removeAll();
@@ -28,7 +30,7 @@ public class frmPrincipalMenu extends javax.swing.JFrame {
         pnlContenidos.revalidate();
         pnlContenidos.repaint();
     }
-    
+
     public void listarUsuarios() {
         try {
             modeloUsuarios = ocUsuarios.listar();
@@ -36,71 +38,71 @@ public class frmPrincipalMenu extends javax.swing.JFrame {
         } catch (Exception e) {
         }
     }
-    
+
     public void insertarUsuarios() {
         try {
             int idusuarios = Integer.parseInt(txtIdUsuario.getText());
             int tipo = 0;
             if (rdAdministrador.isSelected()) {
-                tipo=0;
+                tipo = 0;
             } else {
                 if (rdUsuario.isSelected()) {
-                    tipo=1;
+                    tipo = 1;
                 } else {
-                    tipo=2;
+                    tipo = 2;
                 }
             }
-            
+
             String nombre = txtNombre.getText();
-            String email=txtEmail.getText();
-            String nick=txtNick.getText();
-            char[] arrayPassword=pssPassword.getPassword();
-            String password=new String(arrayPassword);
-            
+            String email = txtEmail.getText();
+            String nick = txtNick.getText();
+            char[] arrayPassword = pssPassword.getPassword();
+            String password = new String(arrayPassword);
+
             EncriptadorAES256 encriptador = new EncriptadorAES256();
             String encriptado = encriptador.getAESEncrypt(password);
-            
+
             ocUsuarios.insertar(idusuarios, tipo, nombre, email, nick, encriptado);
             JOptionPane.showMessageDialog(null, "Se agrego correctamente!");
         } catch (Exception e) {
         }
     }
-    
+
     public void ModificarUsuarios() {
         try {
             int idusuarios = Integer.parseInt(txtIdUsuario.getText());
             int tipo = 0;
             if (rdAdministrador.isSelected()) {
-                tipo=0;
+                tipo = 0;
             } else {
                 if (rdUsuario.isSelected()) {
-                    tipo=1;
+                    tipo = 1;
                 } else {
-                    tipo=2;
+                    tipo = 2;
                 }
             }
-            
+
             String nombre = txtNombre.getText();
-            String email=txtEmail.getText();
-            String nick=txtNick.getText();
-            char[] arrayPassword=pssPassword.getPassword();
-            String password=new String(arrayPassword);
-            
+            String email = txtEmail.getText();
+            String nick = txtNick.getText();
+            char[] arrayPassword = pssPassword.getPassword();
+            String password = new String(arrayPassword);
+
             EncriptadorAES256 encriptador = new EncriptadorAES256();
             String encriptado = encriptador.getAESEncrypt(password);
-            
+
             ocUsuarios.modificar(idusuarios, tipo, nombre, email, nick, encriptado);
             JOptionPane.showMessageDialog(null, "Se modificó correctamente!");
         } catch (Exception e) {
         }
     }
-    
+
     public void RecuperarDatos() {
-        int filaSeleccionada= tblUsuarios.getSelectedRow();
-                
+        int filaSeleccionada = tblUsuarios.getSelectedRow();
+
         txtIdUsuario.setText(tblUsuarios.getValueAt(filaSeleccionada, 0).toString());
-        int tipo= Integer.parseInt(tblUsuarios.getValueAt(filaSeleccionada, 1).toString());
-        switch(tipo){
+        int tipo = Integer.parseInt(tblUsuarios.getValueAt(filaSeleccionada, 1).toString());
+        switch (tipo) {
             case 0:
                 rdAdministrador.setSelected(true);
                 break;
@@ -110,22 +112,23 @@ public class frmPrincipalMenu extends javax.swing.JFrame {
             default:
                 rdInvitado.setSelected(true);
         }
-        
+
         txtNombre.setText(tblUsuarios.getValueAt(filaSeleccionada, 2).toString());
         txtEmail.setText(tblUsuarios.getValueAt(filaSeleccionada, 3).toString());
         txtNick.setText(tblUsuarios.getValueAt(filaSeleccionada, 4).toString());
-        String password=(tblUsuarios.getValueAt(filaSeleccionada, 5).toString());
+
+        //desencrptar contraseña
+        String password = (tblUsuarios.getValueAt(filaSeleccionada, 5).toString());
         try {
-            EncriptadorAES256 encriptador = new EncriptadorAES256();    
-            String desencriptado = encriptador.getAESDecrypt(password); 
+            EncriptadorAES256 encriptador = new EncriptadorAES256();
+            String desencriptado = encriptador.getAESDecrypt(password);
             pssPassword.setText(desencriptado);
         } catch (Exception e) {
-            
+
         }
     }
-    
-    public void limpiar()
-    {
+
+    public void limpiar() {
         txtIdUsuario.setText(null);
         rdTipoGroup.clearSelection();
         txtEmail.setText(null);
@@ -693,18 +696,18 @@ public class frmPrincipalMenu extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnInicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInicioActionPerformed
-        mostarContenido (new frmInicio());
+        mostarContenido(new frmInicio());
     }//GEN-LAST:event_btnInicioActionPerformed
 
     private void btnRegistroClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistroClienteActionPerformed
         // TODO add your handling code here:       
-        mostarContenido (new frmMantenimientoClientes());
-   
+        mostarContenido(new frmMantenimientoClientes());
+
     }//GEN-LAST:event_btnRegistroClienteActionPerformed
 
     private void btnRegistroMascotaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistroMascotaActionPerformed
         // TODO add your handling code here:        
-        mostarContenido (new frmMantenimientoMascotas());
+        mostarContenido(new frmMantenimientoMascotas());
     }//GEN-LAST:event_btnRegistroMascotaActionPerformed
 
     private void rdInvitadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdInvitadoActionPerformed
@@ -744,7 +747,7 @@ public class frmPrincipalMenu extends javax.swing.JFrame {
 
     private void btnCambiarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCambiarUsuarioActionPerformed
         // TODO add your handling code here:
-        frmLogin ofLogin= new frmLogin();
+        frmLogin ofLogin = new frmLogin();
         ofLogin.setVisible(true);
         dispose();
     }//GEN-LAST:event_btnCambiarUsuarioActionPerformed
@@ -759,10 +762,10 @@ public class frmPrincipalMenu extends javax.swing.JFrame {
      */
     public static void main(String args[]) {
         FlatMacLightLaf.setup();
-        UIManager.put( "TextComponent.arc", 15 );
-        UIManager.put( "Button.arc", 20 );
-        UIManager.put( "Component.focusWidth", 4 );
-        
+        UIManager.put("TextComponent.arc", 15);
+        UIManager.put("Button.arc", 20);
+        UIManager.put("Component.focusWidth", 4);
+
         //</editor-fold>
 
         /* Create and display the form */

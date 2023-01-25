@@ -31,7 +31,7 @@ public class cUsuarios {
         
         return oUsuariosDAO.modificar(omUsuarios);
     }
-    
+
     public DefaultTableModel RecuperarUsuario(String nick, String password)
     {
         return oUsuariosDAO.RecuperarUsuario(nick, password);

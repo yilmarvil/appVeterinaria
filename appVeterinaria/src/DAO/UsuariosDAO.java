@@ -127,4 +127,24 @@ public class UsuariosDAO {
             return null;
         }    
     }
+    
+    public boolean eliminar(String pCodigo) {
+        consulta = "delete from clientes where idcliente = ?";
+        try {
+            CallableStatement cst = cn.prepareCall(consulta);
+            cst.setString(1, pCodigo);
+            int n = cst.executeUpdate();
+            if (n != 0) {
+                System.out.println("Se eliminó correctamente");
+                return true;
+            } else {
+                System.out.println("No se eliminó");
+                return false;
+            }
+
+        } catch (Exception e) {
+            System.out.println("Error. No se eliminó el registro");
+            return false;
+        }
+    }
 }

@@ -13,7 +13,7 @@ public class ClientesDAO {
     
     public DefaultTableModel listar() {
         DefaultTableModel modelo;
-        String[] titulos = {"ID Cliente","DNI","Nombres","Apellido Paterno","Apellido Materno","Dirección","Teléfono","e-mail"};
+        String[] titulos = {"ID CLIENTE","DNI","NOMBRES","APELLIDO PATERNO","APELLIDO MATERNO","DIRECCIÓN","TELÉFONO","E-MAIL"};
         Object[] registro = new Object[titulos.length];
         
         modelo = new DefaultTableModel(null,titulos);
@@ -40,7 +40,35 @@ public class ClientesDAO {
             return null;
         }    
     }
-    
+        public DefaultTableModel buscarClientes(String pBuscar) {
+        DefaultTableModel modelo;
+        String[] titulos = {"ID CLIENTE","DNI","NOMBRES","APELLIDO PATERNO","APELLIDO MATERNO","DIRECCIÓN","TELÉFONO","E-MAIL"};
+        Object[] registro = new Object[titulos.length];
+        
+        modelo = new DefaultTableModel(null,titulos);
+        consulta = "select * from clientes where dni like '%"+pBuscar+"%' or nombres like '%"+pBuscar+"%' ";
+        try {
+            CallableStatement cst = cn.prepareCall(consulta);
+            cst.execute();
+            
+            ResultSet rs = cst.getResultSet();
+            while (rs.next()) {                
+                registro[0] = rs.getString("idcliente");
+                registro[1] = rs.getString("dni");
+                registro[2] = rs.getString("nombres");
+                registro[3] = rs.getString("apaterno");
+                registro[4] = rs.getString("amaterno");
+                registro[5] = rs.getString("direccion");
+                registro[6] = rs.getString("telefono");
+                registro[7] = rs.getString("email");
+                modelo.addRow(registro);
+            }
+            return modelo;
+        } catch (Exception e) {
+            System.out.println("Error al listar: "+e);
+            return null;
+        }    
+    }
     public boolean insertar(mClientes modelo) {
        consulta = "insert into clientes() values(?,?,?,?,?,?,?,?)";
         try {
@@ -99,6 +127,26 @@ public class ClientesDAO {
             
         } catch (Exception e) {
             System.out.println("Error. No se eliminó el actualizar"+e);
+            return false;
+        }
+    }
+    
+    public boolean eliminar(String pCodigo) {
+        consulta = "delete from clientes where idcliente = ?";
+        try {
+            CallableStatement cst = cn.prepareCall(consulta);
+            cst.setString(1, pCodigo);
+            int n = cst.executeUpdate();
+            if (n != 0) {
+                System.out.println("Se eliminó correctamente");
+                return true;
+            } else {
+                System.out.println("No se eliminó");
+                return false;
+            }
+
+        } catch (Exception e) {
+            System.out.println("Error. No se eliminó el registro");
             return false;
         }
     }

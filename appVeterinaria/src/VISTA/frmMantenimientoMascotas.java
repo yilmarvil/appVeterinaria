@@ -1,15 +1,94 @@
-
 package VISTA;
 
-public class frmMantenimientoMascotas extends javax.swing.JPanel {
+import CONTROLADOR.cClientes;
+import CONTROLADOR.cMascotas;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
-    /**
-     * Creates new form fmrInicio
-     */
+public class frmMantenimientoMascotas extends javax.swing.JPanel {
+    //instanciar clientes para porder listarlos
+    cClientes ocClientes = new cClientes();
+    DefaultTableModel modeloListaClientes = new DefaultTableModel();
+
+    cMascotas ocMascotas = new cMascotas();
+    DefaultTableModel modeloMascotas = new DefaultTableModel();
     public frmMantenimientoMascotas() {
         initComponents();
+        listarMascotas();
+
+    }
+    
+    public void buscarClientes(String pBuscar) {
+        modeloListaClientes = ocClientes.buscarClientes(pBuscar);
+        tblListaClientes.setModel(modeloListaClientes);
+    }
+    
+    public void listarMascotas() {
+        try {
+            modeloMascotas = ocMascotas.listar();
+            tblMascotas.setModel(modeloMascotas);
+        } catch (Exception e) {
+        }
     }
 
+    public void guardarMascotas() {
+        try {
+            String idmascotas = txtIdMascota.getText();
+            String nombre = txtNombre.getText();
+            String tipo = txtTipo.getText();
+            String raza = txtRaza.getText();
+            int edad = Integer.parseInt(txtEdad.getText());
+            String descripcion = textDescripcion.getText();
+            String clientes_idcliente = txtIdCliente.getText();
+
+            ocMascotas.insertar(idmascotas, nombre, tipo, raza, edad, descripcion, clientes_idcliente);
+
+        } catch (Exception e) {
+        }
+    }
+    
+    public void modificarMascotas() {
+        try {
+            String idmascotas = txtIdMascota.getText();
+            String nombre = txtNombre.getText();
+            String tipo = txtTipo.getText();
+            String raza = txtRaza.getText();
+            int edad = Integer.parseInt(txtEdad.getText());
+            String descripcion = textDescripcion.getText();
+            String clientes_idcliente = txtIdCliente.getText();
+
+            ocMascotas.modificar(idmascotas, nombre, tipo, raza, edad, descripcion, clientes_idcliente);
+            JOptionPane.showMessageDialog(null, "Se modificó correctamente!");
+        } catch (Exception e) {
+        }
+    }
+    
+    public void recuperarDatos() {
+        int filaSeleccionada = tblMascotas.getSelectedRow();
+        txtIdMascota.setText(tblMascotas.getValueAt(filaSeleccionada, 0).toString());
+        txtNombre.setText(tblMascotas.getValueAt(filaSeleccionada, 1).toString());
+        txtTipo.setText(tblMascotas.getValueAt(filaSeleccionada, 2).toString());
+        txtRaza.setText(tblMascotas.getValueAt(filaSeleccionada, 3).toString());
+        txtEdad.setText(tblMascotas.getValueAt(filaSeleccionada, 4).toString());
+        textDescripcion.setText(tblMascotas.getValueAt(filaSeleccionada, 5).toString());
+        txtIdCliente.setText(tblMascotas.getValueAt(filaSeleccionada, 6).toString());
+    }
+    
+    public void limpiar()
+    {
+        txtIdMascota.setText(null);
+        txtNombre.setText(null);
+        txtTipo.setText(null);
+        txtRaza.setText(null);
+        txtEdad.setText(null);
+        textDescripcion.setText(null);
+        txtIdCliente.setText(null);
+    }
+    
+    public void eliminar() {
+        String idMascota = txtIdMascota.getText();
+        boolean valor = ocMascotas.eliminar(idMascota);       
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -19,11 +98,16 @@ public class frmMantenimientoMascotas extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        frmListaClientes = new javax.swing.JFrame();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        tblListaClientes = new javax.swing.JTable();
+        txtBuscarCliente = new javax.swing.JTextField();
+        jLabel25 = new javax.swing.JLabel();
         pnlFondo = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tblMascotas = new javax.swing.JTable();
         jPanel1 = new javax.swing.JPanel();
         jLabel17 = new javax.swing.JLabel();
         jLabel18 = new javax.swing.JLabel();
@@ -31,33 +115,23 @@ public class frmMantenimientoMascotas extends javax.swing.JPanel {
         jLabel20 = new javax.swing.JLabel();
         jLabel21 = new javax.swing.JLabel();
         jLabel24 = new javax.swing.JLabel();
-        txtIdCliente = new javax.swing.JTextField();
-        txtDNI = new javax.swing.JTextField();
-        txtTelefono = new javax.swing.JTextField();
-        txtNombres = new javax.swing.JTextField();
-        txtEmail = new javax.swing.JTextField();
+        txtIdMascota = new javax.swing.JTextField();
+        txtNombre = new javax.swing.JTextField();
+        txtTipo = new javax.swing.JTextField();
+        txtEdad = new javax.swing.JTextField();
+        txtRaza = new javax.swing.JTextField();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        textDescripcion = new javax.swing.JTextArea();
         jLabel22 = new javax.swing.JLabel();
-        txtIdCliente2 = new javax.swing.JTextField();
-        jButton4 = new javax.swing.JButton();
+        txtIdCliente = new javax.swing.JTextField();
+        btnClientes = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         btnEliminar = new javax.swing.JButton();
         btnEditar = new javax.swing.JButton();
         btnRegistrar = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
 
-        setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        pnlFondo.setPreferredSize(new java.awt.Dimension(730, 530));
-        pnlFondo.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jLabel1.setFont(new java.awt.Font("Segoe UI Semibold", 1, 24)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(1, 92, 132));
-        jLabel1.setText("Matenimiento Mascotas");
-        pnlFondo.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 10, 270, 40));
-
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tblListaClientes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -68,7 +142,78 @@ public class frmMantenimientoMascotas extends javax.swing.JPanel {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        tblListaClientes.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblListaClientesMouseClicked(evt);
+            }
+        });
+        jScrollPane3.setViewportView(tblListaClientes);
+
+        txtBuscarCliente.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        txtBuscarCliente.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtBuscarClienteFocusGained(evt);
+            }
+        });
+        txtBuscarCliente.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtBuscarClienteKeyPressed(evt);
+            }
+        });
+
+        jLabel25.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel25.setText("Ingrese Busqueda:");
+        jLabel25.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
+
+        javax.swing.GroupLayout frmListaClientesLayout = new javax.swing.GroupLayout(frmListaClientes.getContentPane());
+        frmListaClientes.getContentPane().setLayout(frmListaClientesLayout);
+        frmListaClientesLayout.setHorizontalGroup(
+            frmListaClientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, frmListaClientesLayout.createSequentialGroup()
+                .addContainerGap(37, Short.MAX_VALUE)
+                .addGroup(frmListaClientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 463, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel25, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtBuscarCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(35, 35, 35))
+        );
+        frmListaClientesLayout.setVerticalGroup(
+            frmListaClientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(frmListaClientesLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel25, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
+                .addComponent(txtBuscarCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(39, Short.MAX_VALUE))
+        );
+
+        pnlFondo.setPreferredSize(new java.awt.Dimension(730, 530));
+        pnlFondo.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel1.setFont(new java.awt.Font("Segoe UI Semibold", 1, 24)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(1, 92, 132));
+        jLabel1.setText("Matenimiento Mascotas");
+        pnlFondo.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 10, 270, 40));
+
+        tblMascotas.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        tblMascotas.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblMascotasMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(tblMascotas);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -121,24 +266,24 @@ public class frmMantenimientoMascotas extends javax.swing.JPanel {
         jLabel24.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         jPanel1.add(jLabel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(11, 130, -1, 30));
 
-        txtIdCliente.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jPanel1.add(txtIdCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 41, 134, 30));
+        txtIdMascota.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jPanel1.add(txtIdMascota, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 41, 134, 30));
 
-        txtDNI.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jPanel1.add(txtDNI, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, 180, 30));
+        txtNombre.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jPanel1.add(txtNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, 180, 30));
 
-        txtTelefono.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jPanel1.add(txtTelefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 160, 180, 30));
+        txtTipo.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jPanel1.add(txtTipo, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 160, 180, 30));
 
-        txtNombres.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jPanel1.add(txtNombres, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 100, 60, 30));
+        txtEdad.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jPanel1.add(txtEdad, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 100, 60, 30));
 
-        txtEmail.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jPanel1.add(txtEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 220, 160, 30));
+        txtRaza.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jPanel1.add(txtRaza, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 220, 160, 30));
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane2.setViewportView(jTextArea1);
+        textDescripcion.setColumns(20);
+        textDescripcion.setRows(5);
+        jScrollPane2.setViewportView(textDescripcion);
 
         jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 160, 230, 90));
 
@@ -147,25 +292,25 @@ public class frmMantenimientoMascotas extends javax.swing.JPanel {
         jLabel22.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         jPanel1.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 10, 134, 30));
 
-        txtIdCliente2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jPanel1.add(txtIdCliente2, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 40, 134, 30));
+        txtIdCliente.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jPanel1.add(txtIdCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 40, 134, 30));
 
-        jButton4.setBackground(new java.awt.Color(91, 192, 222));
-        jButton4.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
-        jButton4.setForeground(new java.awt.Color(255, 255, 255));
-        jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/VISTA/assets/lista-de-verificación-22.png"))); // NOI18N
-        jButton4.setText("Clientes");
-        jButton4.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 5, 1, 1, new java.awt.Color(0, 0, 0)));
-        jButton4.setBorderPainted(false);
-        jButton4.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jButton4.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
-        jButton4.setIconTextGap(5);
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
+        btnClientes.setBackground(new java.awt.Color(91, 192, 222));
+        btnClientes.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
+        btnClientes.setForeground(new java.awt.Color(255, 255, 255));
+        btnClientes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/VISTA/assets/lista-de-verificación-22.png"))); // NOI18N
+        btnClientes.setText("Clientes");
+        btnClientes.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 5, 1, 1, new java.awt.Color(0, 0, 0)));
+        btnClientes.setBorderPainted(false);
+        btnClientes.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnClientes.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        btnClientes.setIconTextGap(5);
+        btnClientes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
+                btnClientesActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 40, -1, 30));
+        jPanel1.add(btnClientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 40, -1, 30));
 
         pnlFondo.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 70, 450, 270));
 
@@ -180,6 +325,11 @@ public class frmMantenimientoMascotas extends javax.swing.JPanel {
         btnEliminar.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         btnEliminar.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
         btnEliminar.setIconTextGap(15);
+        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarActionPerformed(evt);
+            }
+        });
 
         btnEditar.setBackground(new java.awt.Color(240, 173, 78));
         btnEditar.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
@@ -192,6 +342,11 @@ public class frmMantenimientoMascotas extends javax.swing.JPanel {
         btnEditar.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         btnEditar.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
         btnEditar.setIconTextGap(15);
+        btnEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditarActionPerformed(evt);
+            }
+        });
 
         btnRegistrar.setBackground(new java.awt.Color(92, 184, 92));
         btnRegistrar.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
@@ -204,6 +359,11 @@ public class frmMantenimientoMascotas extends javax.swing.JPanel {
         btnRegistrar.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         btnRegistrar.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
         btnRegistrar.setIconTextGap(15);
+        btnRegistrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRegistrarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -234,19 +394,77 @@ public class frmMantenimientoMascotas extends javax.swing.JPanel {
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/VISTA/assets/principal.png"))); // NOI18N
         pnlFondo.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 10, 140, 143));
 
-        add(pnlFondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 727, -1));
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+        this.setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(pnlFondo, javax.swing.GroupLayout.PREFERRED_SIZE, 727, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(pnlFondo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+    private void btnClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClientesActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton4ActionPerformed
+        frmListaClientes.setSize(540, 260);
+        frmListaClientes.setLocation(800, 200);
+        frmListaClientes.setVisible(true);
+        buscarClientes(txtBuscarCliente.getText());
+        
+    }//GEN-LAST:event_btnClientesActionPerformed
+
+    private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
+        // TODO add your handling code here:
+        modificarMascotas();
+        listarMascotas();
+        limpiar();
+    }//GEN-LAST:event_btnEditarActionPerformed
+
+    private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
+        // TODO add your handling code here:
+        guardarMascotas();
+        listarMascotas();
+        limpiar();
+    }//GEN-LAST:event_btnRegistrarActionPerformed
+
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+        // TODO add your handling code here:
+        eliminar();
+        listarMascotas();
+        limpiar();
+    }//GEN-LAST:event_btnEliminarActionPerformed
+
+    private void tblMascotasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblMascotasMouseClicked
+        // TODO add your handling code here:
+        recuperarDatos();
+    }//GEN-LAST:event_tblMascotasMouseClicked
+
+    private void txtBuscarClienteKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarClienteKeyPressed
+        // TODO add your handling code here:
+        buscarClientes(txtBuscarCliente.getText());
+    }//GEN-LAST:event_txtBuscarClienteKeyPressed
+
+    private void txtBuscarClienteFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtBuscarClienteFocusGained
+        // TODO add your handling code here:
+        txtBuscarCliente.setText("");
+    }//GEN-LAST:event_txtBuscarClienteFocusGained
+
+    private void tblListaClientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblListaClientesMouseClicked
+        // TODO add your handling code here:
+        int fila = tblListaClientes.getSelectedRow();
+        String codigoCliente = modeloListaClientes.getValueAt(fila,0).toString();
+        txtIdCliente.setText(codigoCliente);
+    }//GEN-LAST:event_tblListaClientesMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnClientes;
     private javax.swing.JButton btnEditar;
     private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnRegistrar;
-    private javax.swing.JButton jButton4;
+    private javax.swing.JFrame frmListaClientes;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
@@ -256,19 +474,23 @@ public class frmMantenimientoMascotas extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel24;
+    private javax.swing.JLabel jLabel25;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTextArea jTextArea1;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JPanel pnlFondo;
-    private javax.swing.JTextField txtDNI;
-    private javax.swing.JTextField txtEmail;
+    private javax.swing.JTable tblListaClientes;
+    private javax.swing.JTable tblMascotas;
+    private javax.swing.JTextArea textDescripcion;
+    private javax.swing.JTextField txtBuscarCliente;
+    private javax.swing.JTextField txtEdad;
     private javax.swing.JTextField txtIdCliente;
-    private javax.swing.JTextField txtIdCliente2;
-    private javax.swing.JTextField txtNombres;
-    private javax.swing.JTextField txtTelefono;
+    private javax.swing.JTextField txtIdMascota;
+    private javax.swing.JTextField txtNombre;
+    private javax.swing.JTextField txtRaza;
+    private javax.swing.JTextField txtTipo;
     // End of variables declaration//GEN-END:variables
 }

@@ -11,6 +11,9 @@ public class cClientes {
     public DefaultTableModel listar() {
         return oClientesDAO.listar();
     }
+    public DefaultTableModel buscarClientes(String pBuscar) {
+        return oClientesDAO.buscarClientes(pBuscar);
+    }
     public boolean insertar(String idcliente, String dni, String nombres, String apaterno, String amaterno, String direccion, String telefono, String email){
         omClientes.setIdcliente(idcliente);
         omClientes.setDni(dni);
@@ -34,5 +37,11 @@ public class cClientes {
         omClientes.setEmail(email);
         
         return oClientesDAO.modificar(omClientes);
-    } 
+    }
+    
+    public boolean eliminar(String idcliente) {
+
+        boolean valor = oClientesDAO.eliminar(idcliente);
+        return valor;
+    }
 }

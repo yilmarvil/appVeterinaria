@@ -55,10 +55,9 @@ public class frmMantenimientoClientes extends javax.swing.JPanel {
         } catch (Exception e) {
         }
     }
-    
-    public void RecuperarDatos()
-    {
-        int filaSeleccionada= tblClientes.getSelectedRow();
+ 
+    public void RecuperarDatos() {
+        int filaSeleccionada = tblClientes.getSelectedRow();
         txtIdCliente.setText(tblClientes.getValueAt(filaSeleccionada, 0).toString());
         txtDNI.setText(tblClientes.getValueAt(filaSeleccionada, 1).toString());
         txtNombres.setText(tblClientes.getValueAt(filaSeleccionada, 2).toString());
@@ -69,8 +68,7 @@ public class frmMantenimientoClientes extends javax.swing.JPanel {
         txtEmail.setText(tblClientes.getValueAt(filaSeleccionada, 7).toString());
     }
     
-    public void limpiar()
-    {
+    public void limpiar() {
         txtIdCliente.setText(null);
         txtDNI.setText(null);
         txtNombres.setText(null);
@@ -79,6 +77,11 @@ public class frmMantenimientoClientes extends javax.swing.JPanel {
         txtDireccion.setText(null);
         txtTelefono.setText(null);
         txtEmail.setText(null);
+    }
+    
+    public void eliminar() {
+        String idcliente = txtIdCliente.getText();
+        boolean valor = ocClientes.eliminar(idcliente);       
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -109,7 +112,7 @@ public class frmMantenimientoClientes extends javax.swing.JPanel {
         txtEmail = new javax.swing.JTextField();
         txtDireccion = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
-        jButton3 = new javax.swing.JButton();
+        btnEliminar = new javax.swing.JButton();
         btnEditar = new javax.swing.JButton();
         btnRegistrar = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
@@ -243,16 +246,21 @@ public class frmMantenimientoClientes extends javax.swing.JPanel {
                 .addContainerGap())
         );
 
-        jButton3.setBackground(new java.awt.Color(217, 83, 79));
-        jButton3.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
-        jButton3.setForeground(new java.awt.Color(255, 255, 255));
-        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/VISTA/assets/delete-trash-32.png"))); // NOI18N
-        jButton3.setText("Eliminar");
-        jButton3.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 10, 1, 1, new java.awt.Color(0, 0, 0)));
-        jButton3.setBorderPainted(false);
-        jButton3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jButton3.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
-        jButton3.setIconTextGap(15);
+        btnEliminar.setBackground(new java.awt.Color(217, 83, 79));
+        btnEliminar.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
+        btnEliminar.setForeground(new java.awt.Color(255, 255, 255));
+        btnEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/VISTA/assets/delete-trash-32.png"))); // NOI18N
+        btnEliminar.setText("Eliminar");
+        btnEliminar.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 10, 1, 1, new java.awt.Color(0, 0, 0)));
+        btnEliminar.setBorderPainted(false);
+        btnEliminar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnEliminar.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        btnEliminar.setIconTextGap(15);
+        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarActionPerformed(evt);
+            }
+        });
 
         btnEditar.setBackground(new java.awt.Color(240, 173, 78));
         btnEditar.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
@@ -296,7 +304,7 @@ public class frmMantenimientoClientes extends javax.swing.JPanel {
                 .addGap(15, 15, 15)
                 .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(15, 15, 15)
-                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -306,7 +314,7 @@ public class frmMantenimientoClientes extends javax.swing.JPanel {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnRegistrar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(16, Short.MAX_VALUE))
         );
 
@@ -415,11 +423,18 @@ public class frmMantenimientoClientes extends javax.swing.JPanel {
         limpiar();
     }//GEN-LAST:event_btnEditarActionPerformed
 
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+        // TODO add your handling code here:
+        eliminar();
+        listarClientes();
+        limpiar();
+    }//GEN-LAST:event_btnEliminarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnEditar;
+    private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnRegistrar;
-    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
