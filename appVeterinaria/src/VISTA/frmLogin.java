@@ -60,7 +60,7 @@ public class frmLogin extends javax.swing.JFrame {
         jLabel1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         pnlIzquierda.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(81, 210, 200, 40));
 
-        txtUsuario.setBackground(new java.awt.Color(1, 92, 132));
+        txtUsuario.setBackground(new java.awt.Color(48, 161, 191));
         txtUsuario.setFont(new java.awt.Font("Segoe UI Light", 1, 14)); // NOI18N
         txtUsuario.setForeground(new java.awt.Color(255, 255, 255));
         txtUsuario.setBorder(null);
@@ -73,7 +73,7 @@ public class frmLogin extends javax.swing.JFrame {
         jLabel3.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         pnlIzquierda.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(82, 127, 190, 40));
 
-        pssPasword.setBackground(new java.awt.Color(1, 92, 132));
+        pssPasword.setBackground(new java.awt.Color(48, 161, 191));
         pssPasword.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         pssPasword.setForeground(new java.awt.Color(255, 255, 255));
         pssPasword.setBorder(null);
@@ -119,7 +119,7 @@ public class frmLogin extends javax.swing.JFrame {
         jLabel7.setText("Inicio de Sesión");
         pnlIzquierda.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(22, 48, -1, -1));
 
-        jPanel7.setBackground(new java.awt.Color(1, 92, 132));
+        jPanel7.setBackground(new java.awt.Color(48, 161, 191));
 
         btnCancelar.setBackground(new java.awt.Color(217, 83, 79));
         btnCancelar.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
