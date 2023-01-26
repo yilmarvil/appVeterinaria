@@ -505,6 +505,11 @@ public class frmPrincipalMenu extends javax.swing.JFrame {
         btnConsultas.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnConsultas.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         btnConsultas.setIconTextGap(15);
+        btnConsultas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnConsultasActionPerformed(evt);
+            }
+        });
 
         btnTratamientos.setBackground(new java.awt.Color(1, 92, 132));
         btnTratamientos.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -766,6 +771,11 @@ public class frmPrincipalMenu extends javax.swing.JFrame {
         // TODO add your handling code here:
         mostarContenido(new frmMantenimientoMedicos());
     }//GEN-LAST:event_btnMedicosActionPerformed
+
+    private void btnConsultasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultasActionPerformed
+        // TODO add your handling code here:
+        mostarContenido(new frmRegistroConsultas());
+    }//GEN-LAST:event_btnConsultasActionPerformed
 
     /**
      * @param args the command line arguments
